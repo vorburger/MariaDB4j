@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>ch.vorburger.mariaDB4j</groupId>
@@ -9,8 +9,8 @@
         <relativePath>../mariaDB4j-pom-lite/pom.xml</relativePath>
     </parent>
 
-	<artifactId>mariaDB4j-db-win32</artifactId>
-	<version>10.2.11</version>
+    <artifactId>mariaDB4j-db-win32</artifactId>
+    <version>10.2.11</version>
 
     <properties>
         <mariaDB.version>10.2.11</mariaDB.version>
@@ -34,7 +34,9 @@
                         <configuration>
                             <target>
                                 <unzip src="${basedir}/mariaDB/win32.zip"
-                                       dest="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/win32"/>
+                                    dest="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/win32" />
+                                <unzip src="${basedir}/mariaDB/timezone.zip"
+                                    dest="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/win32/timezone" />
                             </target>
                         </configuration>
                         <goals>

@@ -19,28 +19,52 @@
  */
 package ch.vorburger.mariadb4j.springboot.autoconfigure;
 
+import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
+import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //separate with MariaDB4jSpringConfiguration for test of it
 @Configuration
-@ConfigurationProperties("spring.datasource")
 public class DataSourceAutoConfiguration {
 
+    private static final String JDBC_URL_FORMATTER = "jdbc:mariadb://%s:%s/%s";
+    private static final String URL_PATTERN = "jdbc:mariadb://(\\S{1,255}):\\d+/(\\w+)";
+    private static final int HOST = 1;
+    private static final int DATABASE = 2;
+    private static final int DYNAMIC_PORT = 0;
+
+    @Value("${mariaDB4j.port}")
+    private Integer configuredMariaDBPort;
+
     @Bean
-    @DependsOn("mariaDB4j")
-    public DataSource dataSource(DataSourceProperties dataSourceProperties) {
+    public DataSource dataSource(DataSourceProperties dataSourceProperties, MariaDB4jSpringService mariaDB4j) {
+        String actualUrl = generateActualUrl(dataSourceProperties, mariaDB4j.getPort());
+
         return DataSourceBuilder.create()
                 .driverClassName(dataSourceProperties.getDriverClassName())
-                .url(dataSourceProperties.getUrl())
+                .url(actualUrl)
                 .username(dataSourceProperties.getUsername())
                 .password(dataSourceProperties.getPassword())
                 .build();
+    }
+
+    private String generateActualUrl(DataSourceProperties dataSourceProperties, int actualPort) {
+        String actualUrl = dataSourceProperties.getUrl();
+        if (configuredMariaDBPort != null && configuredMariaDBPort == DYNAMIC_PORT) {
+            Matcher matcher = Pattern.compile(URL_PATTERN).matcher(actualUrl);
+            if (!matcher.find()) {
+                throw new BeanCreationException("dataSource", "Cannot create bean dataSource cause mariaDB4j.port is 0 and we cannot match database url.");
+            }
+            actualUrl = String.format(JDBC_URL_FORMATTER, matcher.group(HOST), actualPort, matcher.group(DATABASE));
+        }
+        return actualUrl;
     }
 }

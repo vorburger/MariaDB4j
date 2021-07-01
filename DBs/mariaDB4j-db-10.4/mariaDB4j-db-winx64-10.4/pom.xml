@@ -4,8 +4,8 @@
 
     <parent>
         <groupId>ch.vorburger.mariaDB4j</groupId>
-        <artifactId>mariaDB4j-10.3</artifactId>
-        <version>10.3.21</version>
+        <artifactId>mariaDB4j-10.4</artifactId>
+        <version>10.4.11</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

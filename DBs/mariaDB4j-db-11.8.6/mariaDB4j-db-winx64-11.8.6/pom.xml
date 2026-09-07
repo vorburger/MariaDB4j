@@ -12,6 +12,7 @@
 
   <artifactId>mariaDB4j-db-winx64</artifactId>
   <version>11.8.6</version>
+  <name>MariaDB4j DB Winx64</name>
 
   <properties>
     <mariaDB.version>11.8.6</mariaDB.version>

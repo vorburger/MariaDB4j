@@ -12,6 +12,7 @@
 
   <artifactId>mariaDB4j-db-macos-arm64</artifactId>
   <version>11.8.6</version>
+  <name>MariaDB4j DB macOS arm64</name>
 
   <properties>
     <mariaDB.version>${project.version}</mariaDB.version>

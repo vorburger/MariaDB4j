@@ -12,6 +12,7 @@
 
   <artifactId>mariaDB4j-db-linux-arm64</artifactId>
   <version>11.8.6</version>
+  <name>MariaDB4j DB Linux arm64</name>
 
   <properties>
     <mariaDB.version>${project.version}</mariaDB.version>

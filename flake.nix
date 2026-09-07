@@ -14,7 +14,8 @@
     {
       devShells = forAllSystems (system: {
         default = (pkgsFor system).mkShell {
-          buildInputs = [ (pkgsFor system).jdk17_headless ];
+          # JDK version must be the same here and in .java-version
+          buildInputs = [ (pkgsFor system).jdk21_headless ];
         };
       });
     };

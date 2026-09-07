@@ -62,9 +62,12 @@
             <arg>-Xlint:all</arg>
             <arg>-XDcompilePolicy=simple</arg>
             <arg>--should-stop=ifError=FLOW</arg>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
             <!-- Note bene: -XepAllDisabledChecksAsWarnings is not worth it! -->
-            <arg>-Xplugin:ErrorProne -XepDisableWarningsInGeneratedCode
-              -Xep:IdentifierName:OFF -Xep:Java8ApiChecker:OFF
+            <arg>-Xplugin:ErrorProne
+              -XepDisableWarningsInGeneratedCode
+              -Xep:Java8ApiChecker:OFF
+              -Xep:IdentifierName:OFF
               -XepExcludedPaths:.*/target/generated-sources/.*</arg>
           </compilerArgs>
           <annotationProcessorPaths>

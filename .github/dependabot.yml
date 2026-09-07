@@ -20,6 +20,10 @@ updates:
     interval: quarterly
     time: "04:00"
   open-pull-requests-limit: 99
+  groups:
+    codeql:
+      patterns:
+        - "github/codeql-action*"
 
 - package-ecosystem: "devcontainers"
   directory: "/"
